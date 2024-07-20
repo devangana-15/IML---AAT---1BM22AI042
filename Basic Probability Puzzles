@@ -1,0 +1,6 @@
+import fractions
+p_M = fractions.Fraction(1,2) 
+p_E = fractions.Fraction(3,5) 
+p_B = fractions.Fraction(1,5) 
+
+print(p_M + p_E - p_B)
