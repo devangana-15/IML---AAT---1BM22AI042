@@ -1,0 +1,28 @@
+import sys
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.feature_extraction.text import CountVectorizer
+
+with open('trainingdata.txt', 'r') as f:
+    num_train_docs = int(f.readline())
+    train_categories = []
+    train_docs = []
+    for _ in range(num_train_docs):
+        line = f.readline().strip()
+        category, doc = line.split(' ', 1)
+        train_categories.append(int(category))
+        train_docs.append(doc)
+
+vectorizer = CountVectorizer()
+X_train = vectorizer.fit_transform(train_docs)
+y_train = train_categories
+clf = MultinomialNB()
+clf.fit(X_train, y_train)
+T = int(sys.stdin.readline())
+test_docs = []
+for _ in range(T):
+    test_docs.append(sys.stdin.readline().strip())
+
+X_test = vectorizer.transform(test_docs)
+y_pred = clf.predict(X_test)
+for category in y_pred:
+    print(category)
